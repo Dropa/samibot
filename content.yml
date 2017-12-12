@@ -5,32 +5,24 @@ start:
       - Elikkäs homman nimi on, että eka morotetaan
       - Kokeile vaikka sanoo jotain
 
-welhei: 
+startConvo:
   - typing: 0.5s
-    text: 
-      - Moro!
-      - Moro {{user.first_name}}!
-      - Kato {{user.first_name}}!
-      - Ei juku, sehän on {{user.first_name}}!
-      - Itte {{user.first_name}} saapu!
-      - {{user.first_name}} in da house!!
-      - Päevää että pätkähti sullekki {{user.first_name}}
+    text:
+      - Moro {{user.first_name}}! Mitäs, vitsiä vai sääinffoo?
+      - Moro {{user.first_name}}! Tääl on jees keli, mitäs laitettas?
+      - Moro {{user.first_name}}! Haluutsä hasun vitsin vai katonko kristallipalloon ja ennustan sään?
+    quick_replies:
+      - <.B1> Vitsi
+      - <.B2> Säätä
+
+getLocation:
   - typing: 0.5s
-    text: 
-      - Onko kelejä pidelly?
-      - Tääl on perhanan pimeetä ja kylmä, mites siel?
-      - Mitäs, maistuisko säätieto?
-      - Tääl on ihan jees keli, mites siel, pitäskö kattoo?
-      - Mis äijä menee?
-  - wait: 0.5s
-  - text: 
+    text:
       - Paina tost ni tsekkaillaan
-      - Napist saadaan katottuu sunki säätieto
-      - Heitä joku sijainti
-      - Säätietoja sinnekin
     quick_replies:
       - content_type: location
         title: location
+
 
 welhej:
   - text: Ei täällä nyt ¤"%#& mitään ruottia puhuta
@@ -43,7 +35,14 @@ where_location:
     lämpöö siel on tollaset {{obj.temp}} astetta.
     Kosteutta ois sellaset {{obj.humidity}} rossaa
     ja tuultaki {{obj.wind}} metrii sekas.
-    
+
+jokeResponse:
+    - typing: 0.5s
+      text:
+        - |
+          {{ joke }}
+      wait: 0.5s
+
 wat:
   - text:
     - Ekkö sää osaa edes morottaa

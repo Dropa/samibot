@@ -2,11 +2,40 @@
 module.exports = function(bp) {
 
   bp.hear(/GET_STARTED/i, (event, next) => {
-    event.reply('#start')
+  event.reply('#start')
+})
+
+  bp.hear(/GET_STARTED|mo|moro|moron|moi|hei/i, (event, next) => {
+    event.reply('#startConvo')
   })
 
-  bp.hear(/mo|moro|moron|moi|hei/i, (event, next) => {
-    event.reply('#welhei')
+  bp.hear('STARTCONVO.B1', (event, next) => {
+    let http = require('http');
+
+    let options = {
+      host: 'api.icndb.com',
+      path:'/jokes/random',
+      method: 'GET',
+      header: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    };
+    let toparse = '';
+    callback = function(response) {
+        response.on('data', function (chunk) {
+          toparse += chunk
+        });
+        console.log(toparse);
+        response.on('end', function () {
+          let json = JSON.parse(toparse);
+          joke = json.value.joke;
+          event.reply('#jokeResponse', { joke })
+        })
+    };
+    http.request(options, callback).end();
+  })
+
+
+  bp.hear('STARTCONVO.B2', (event, next) => {
+    event.reply('#getLocation')
   })
 
   bp.hear(/hej/i, (event, next) => {
@@ -58,6 +87,5 @@ module.exports = function(bp) {
   }, (event, next) => {
     event.reply('#wat')
   })
-  
-};
 
+};
